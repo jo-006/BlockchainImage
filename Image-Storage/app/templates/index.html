@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <section class="upload-section">
+        <h2>Upload an Image</h2>
+        <form action="/submit" method="POST" enctype="multipart/form-data">
+            <label for="user">User Name:</label>
+            <input type="text" id="user" name="user" class="input-field" placeholder="Enter Your Name" required>
+
+            <label for="fileUpld">Upload an Image:</label>
+            <input type="file" id="fileUpld" name="v_file" accept=".png,.jpeg,.jpg,.gif" class="input-field" required>
+
+            <button type="submit" class="button">Upload</button>
+        </form>
+    </section>
+
+    <section class="files-section">
+        <h2>Uploaded Images</h2>
+        {% for post in request_tx %}
+        <div class="file-card">
+            <div class="file-info">
+                <div class="file-avatar">{{ post.user[0] }}</div>
+                <div class="file-name">{{ post.user }}</div>
+            </div>
+            <div class="file-actions">
+                <p>{{ post.v_file }} →
+                <a href="{{ url_for('download_file', variable=post.v_file) }}" class="download-link">Download</a>
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+</div>
+{% endblock %}
